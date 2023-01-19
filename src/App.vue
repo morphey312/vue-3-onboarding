@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <cards/>
+  <v-app>
+    <v-main>
+      <products/>
+    </v-main>
+  </v-app>
+<!--  <img alt="Vue logo" src="./assets/logo.png">-->
+<!--    <cards/>-->
 </template>
 
 <script>
 import Cards from "@/components/Cards.vue";
+import Products from "@/components/Products/Products.vue";
 
 export default {
   name: 'App',
   components: {
     Cards,
+    Products,
   }
 }
 </script>
