@@ -22,6 +22,7 @@
           v-if="product.category === 'jewelery'"
           color="orange-lighten-2"
           variant="text"
+          @click="moveTo(product.id)"
       >
         Explore
       </v-btn>
@@ -57,7 +58,18 @@ export default {
     return {
       show: false,
     }
-  }
+  },
+  methods: {
+    moveTo(id) {
+      console.log('price', this.product.price)
+      this.$router.push({
+        name: 'single-products',
+        params: {
+            id: id,
+        },
+      })
+    },
+  },
 }
 </script>
 

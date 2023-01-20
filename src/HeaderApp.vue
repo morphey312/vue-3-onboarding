@@ -59,4 +59,7 @@ export default {
     text-decoration: none;
     color: white;
   }
+  .active {
+    color: #42b983;
+  }
 </style>
