@@ -1,22 +1,23 @@
 <template>
+  <header-app/>
   <v-app>
     <v-main>
-      <products/>
+      <router-view></router-view>
     </v-main>
   </v-app>
-<!--  <img alt="Vue logo" src="./assets/logo.png">-->
-<!--    <cards/>-->
 </template>
 
 <script>
 import Cards from "@/components/Cards.vue";
 import Products from "@/components/Products/Products.vue";
+import HeaderApp from "./HeaderApp.vue";
 
 export default {
   name: 'App',
   components: {
     Cards,
     Products,
+    HeaderApp
   }
 }
 </script>
@@ -28,6 +29,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

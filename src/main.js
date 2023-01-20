@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import router from "@/router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import App from './App.vue'
@@ -17,4 +18,4 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 app.component('Counter', Counter);
-app.use(vuetify).mount('#app');
+app.use(vuetify).use(router).mount('#app');
