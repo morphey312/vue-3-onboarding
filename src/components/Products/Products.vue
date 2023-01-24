@@ -31,8 +31,8 @@
 
 <script>
 import Product from "@/components/Products/Product.vue";
-import { mapActions, mapState } from 'pinia'
 import { useProductsStore } from "@/router/stores/products";
+import { mapActions, mapState } from 'pinia'
 
 export default {
   name: "Products",

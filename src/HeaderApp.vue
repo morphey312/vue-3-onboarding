@@ -2,6 +2,12 @@
   <v-card>
     <v-toolbar color="primary">
       <v-toolbar-title>Navigation Bar</v-toolbar-title>
+      <div v-if="user">
+        <span>{{user.email}}</span>
+      </div>
+      <div>
+        <button @click="logout" type="button" class="btn btn-success">Logout</button>
+      </div>
       <template v-slot:extension>
         <v-tabs
             v-model="tab"
@@ -13,7 +19,7 @@
               :key="link"
               :value="link"
           >
-            <router-link :to="link.route">{{ link.label }}</router-link>
+            <router-link to="" @click="moveTo(link.name)">{{ link.label }}</router-link>
           </v-tab>
         </v-tabs>
       </template>
@@ -22,6 +28,9 @@
 </template>
 
 <script>
+import {useAuthStore} from "@/router/stores/auth";
+import {mapState, mapActions} from "pinia";
+
 export default {
   name: 'HeaderApp',
   data () {
@@ -29,26 +38,34 @@ export default {
       tab: null,
       links: [
         {
-          route: '/',
-          label: 'Home',
+          name: 'auth',
+          label: 'Auth',
         },
         {
-          route: '/products',
+          name: 'products',
           label: 'Products',
         },
         {
-          route: '/counter',
+          name: 'counter',
           label: 'Counter',
         },
         {
-          route: '/cards',
+          name: 'cards',
           label: 'Cards',
         },
-        {
-          route: '/some',
-          label: 'Some Page',
-        },
       ],
+    }
+  },
+  computed: {
+    ...mapState(useAuthStore, ["user"])
+  },
+  methods: {
+    ...mapActions(useAuthStore, ["logout"]),
+    moveTo(name) {
+      this.$router.push({
+        name: name
+      })
+      console.log(this.$router);
     }
   },
 }

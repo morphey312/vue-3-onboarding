@@ -14,7 +14,7 @@ export const useProductsStore = defineStore('products', {
         getProducts(params = {}) {
             axiosInstance.get('/products', {
                 params: {
-                    limit: 10,
+                    limit: 4,
                     ...params
                 }
             })
