@@ -5,34 +5,27 @@
 </template>
 
 <script>
-import axios from "../../../services/axios";
-
+import { mapActions, mapState } from 'pinia'
+import { useProductsStore } from "@/router/stores/products";
 export default {
   name: "SingleProduct",
   data() {
     return {
       productId: null,
-      product: {},
     }
+  },
+  computed: {
+    ...mapState(useProductsStore, ['product'])
+  },
+  methods: {
+    ...mapActions(useProductsStore, ['getProduct']),
   },
   mounted() {
     this.productId = this.$route.params.id;
-    this.getProduct();
+    this.getProduct(this.productId);
   },
-  methods: {
-    getProduct() {
-      axios.get('/products/' + this.productId)
-        .then(response => {
-          console.log(response.data)
-          this.product = response.data;
-        })
-    }
-  }
 }
 </script>
 
 <style scoped>
-  .red {
-    color: red;
-  }
 </style>
