@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     moveTo(id) {
-      console.log('price', this.product.price)
       this.$router.push({
         name: 'single-products',
         params: {
@@ -74,7 +73,4 @@ export default {
 </script>
 
 <style scoped>
-  .red {
-    color: red;
-  }
 </style>

@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {useProductsStore} from "@/router/stores/products";
 export default {
   name: 'Counter',
   data() {
@@ -27,7 +28,7 @@ export default {
     decrement() {
       this.count--
     }
-  }
+  },
 }
 </script>
 
