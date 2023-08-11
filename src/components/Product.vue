@@ -30,8 +30,17 @@
       <v-spacer></v-spacer>
 
       <v-btn
+          color="orange-lighten-2"
+          variant="text"
+          @click="deleteProduct"
+      >
+        Delete
+      </v-btn>
+
+      <v-btn
           :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-          @click="show = !show"
+          :style="{ color: show ? redStyle : '', 'text-decoration': underlineStyle }"
+          @click="countViewedProducts"
       >More</v-btn>
     </v-card-actions>
 
@@ -59,8 +68,23 @@ export default {
   data() {
     return {
       show: false,
+      isViewedProduct: false,
+      redStyle: 'red',
+      underlineStyle: 'underline'
     }
   },
+  methods: {
+    countViewedProducts() {
+      this.show = !this.show
+      if (!this.isViewedProduct) {
+        this.isViewedProduct = true
+        this.$emit('viewed-product')
+      }
+    },
+    deleteProduct() {
+      this.$emit('delete-product', this.product.id)
+    }
+  }
 
 }
 </script>
@@ -69,5 +93,8 @@ export default {
 <style scoped>
   .red {
     color: red;
+  }
+  .underline {
+    text-decoration: underline;
   }
 </style>
