@@ -2,10 +2,24 @@
   <div>
     <h1>Products</h1>
     <v-container>
+      <v-row justify="space-between">
+        <v-col>
+          <v-sheet align="start" class="pa-2 ma-2">
+            Viewed Products
+          </v-sheet>
+        </v-col>
+        <v-col>
+          <v-sheet align="end" class="pa-2 ma-2">
+            {{ viewedProducts }}
+          </v-sheet>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col v-for="product in products" :key="product.id">
           <product
               :product="product"
+              @viewed-product="viewedProducts++"
+              @delete-product="deleteProduct"
           />
         </v-col>
       </v-row>
@@ -23,7 +37,8 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [],
+      viewedProducts: 0
     }
   },
   methods: {
@@ -36,11 +51,14 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    deleteProduct(id) {
+      this.products = this.products.filter(product => product.id !== id)
     }
   },
   mounted() {
     this.getProducts();
-  }
+  },
 }
 </script>
 
