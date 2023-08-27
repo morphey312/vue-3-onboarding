@@ -15,12 +15,11 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="product in products" :key="product.id">
-          <product
+        <v-col>
+          <product v-if="product"
               :product="product"
               @viewed-product="viewedProducts++"
               @delete-product="deleteProduct"
-              @click="goToProduct(product.id)"
           />
         </v-col>
       </v-row>
@@ -29,12 +28,11 @@
 </template>
 
 <script>
-import axiosInstance from "../../services/axios";
 import Product from "@/components/Product.vue";
 import { useProductStore } from "../store/ProductStore.js";
 import {mapActions, mapState} from "pinia";
 export default {
-  name: 'Products',
+  name: 'SingleProduct',
   components: {
     Product
   },
@@ -48,20 +46,18 @@ export default {
     deleteProduct(id) {
       this.products = this.products.filter(product => product.id !== id)
     },
-    goToProduct(id) {
-      this.$router.push({
-        name: 'single-product',
-        params: {
-          id: id
-        }
-      })
-    }
   },
   computed: {
-    ...mapState(useProductStore, ['products'])
+    ...mapState(useProductStore, ['products']),
+    product() {
+      let id = +this.$route.params.id
+      return this.products.find(product => product.id === id)
+    }
   },
-  mounted() {
-    this.getProducts();
+  async created() {
+    if (!this.products.length) {
+      await this.getProducts()
+    }
   },
 }
 </script>

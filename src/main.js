@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,7 +16,10 @@ const vuetify = createVuetify({
     directives,
 })
 
+const pinia = createPinia()
+
 createApp(App)
     .use(vuetify)
     .use(router)
+    .use(pinia)
     .mount('#app')

@@ -11,7 +11,13 @@ const routes = [
         path: '/hello-world/:id',
         name: 'hello',
         component: HelloWorld
+    },
+    {
+        path: '/products/:id',
+        name: 'single-product',
+        component: () => import('../components/SingleProduct.vue')
     }
+
 ]
 
 const router = createRouter({
