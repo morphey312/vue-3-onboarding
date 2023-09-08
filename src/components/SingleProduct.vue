@@ -23,6 +23,15 @@
           />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <card-product>
+            <template v-slot:default="slotProps">
+              <li v-for="item in slotProps.items" :key="item">{{ item }}</li>
+            </template>
+          </card-product>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -31,9 +40,13 @@
 import Product from "@/components/Product.vue";
 import { useProductStore } from "../store/ProductStore.js";
 import {mapActions, mapState} from "pinia";
+import CardProduct from "@/components/CardProduct.vue";
+import { myMixin } from "@/mixins/mixinExamp.js";
 export default {
   name: 'SingleProduct',
+  mixins: [myMixin],
   components: {
+    CardProduct,
     Product
   },
   data() {
@@ -46,6 +59,9 @@ export default {
     deleteProduct(id) {
       this.products = this.products.filter(product => product.id !== id)
     },
+    helloMixin() {
+      console.log('Привіт від component!');
+    }
   },
   computed: {
     ...mapState(useProductStore, ['products']),
@@ -55,6 +71,7 @@ export default {
     }
   },
   async created() {
+    console.log('created from component')
     if (!this.products.length) {
       await this.getProducts()
     }
