@@ -15,13 +15,21 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="product in products" :key="product.id">
-          <product
+        <v-col>
+          <product v-if="product"
               :product="product"
               @viewed-product="viewedProducts++"
               @delete-product="deleteProduct"
-              @click="goToProduct(product.id)"
           />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <card-product>
+            <template v-slot:default="slotProps">
+              <li v-for="item in slotProps.items" :key="item">{{ item }}</li>
+            </template>
+          </card-product>
         </v-col>
       </v-row>
     </v-container>
@@ -29,13 +37,16 @@
 </template>
 
 <script>
-import axiosInstance from "../../services/axios";
 import Product from "@/components/Product.vue";
 import { useProductStore } from "../store/ProductStore.js";
 import {mapActions, mapState} from "pinia";
+import CardProduct from "@/components/CardProduct.vue";
+import { myMixin } from "@/mixins/mixinExamp.js";
 export default {
-  name: 'Products',
+  name: 'SingleProduct',
+  mixins: [myMixin],
   components: {
+    CardProduct,
     Product
   },
   data() {
@@ -48,20 +59,22 @@ export default {
     deleteProduct(id) {
       this.products = this.products.filter(product => product.id !== id)
     },
-    goToProduct(id) {
-      this.$router.push({
-        name: 'single-product',
-        params: {
-          id: id
-        }
-      })
+    helloMixin() {
+      console.log('Привіт від component!');
     }
   },
   computed: {
-    ...mapState(useProductStore, ['products'])
+    ...mapState(useProductStore, ['products']),
+    product() {
+      let id = +this.$route.params.id
+      return this.products.find(product => product.id === id)
+    }
   },
-  mounted() {
-    this.getProducts();
+  async created() {
+    console.log('created from component')
+    if (!this.products.length) {
+      await this.getProducts()
+    }
   },
 }
 </script>

@@ -27,7 +27,7 @@
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group has-validation">
                   <span class="input-group-text">@</span>
-                  <input type="text" class="form-control" id="username" placeholder="Username" v-model="form.userName" required>
+                  <input v-focus type="text" class="form-control" id="username" placeholder="Username" v-model="form.userName" required>
                   <div class="invalid-feedback">
                     Your username is required.
                   </div>
@@ -179,6 +179,13 @@ export default {
   },
   components: {
     CustomInput
+  },
+  directives: {
+    focus: {
+      mounted(el) {
+        el.focus()
+      }
+    }
   },
   data() {
     return {
