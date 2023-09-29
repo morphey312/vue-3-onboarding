@@ -1,10 +1,9 @@
 import { createApp } from 'vue'
-import router from "@/router";
 import { createPinia } from 'pinia'
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
 import App from './App.vue'
-import Counter from "@/components/Counter.vue";
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import router from "@/router";
 
 // Vuetify
 import 'vuetify/styles'
@@ -19,10 +18,8 @@ const vuetify = createVuetify({
 
 const pinia = createPinia()
 
-const app = createApp(App);
-app.component('Counter', Counter);
-app
+createApp(App)
     .use(vuetify)
     .use(router)
     .use(pinia)
-    .mount('#app');
+    .mount('#app')
